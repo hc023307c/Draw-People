@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <title>號碼抽籤器（學生點名）</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <h1 class="app-title">號碼抽籤器</h1>
+      <p class="app-subtitle">
+        可設定號碼範圍、排除對象、重複或不重複模式，並以顏色紀錄被抽中的次數。
+      </p>
+    </header>
+
+    <main class="app-main">
+      <!-- 上：控制區 -->
+      <section class="panel panel-controls">
+        <h2 class="panel-title">抽籤設定</h2>
+
+        <div class="controls-grid">
+          <div class="field">
+            <label>號碼範圍（1–100）</label>
+            <div class="range-row">
+              <input id="rangeStart" type="number" min="1" max="100" value="1" />
+              <span class="range-sep">～</span>
+              <input id="rangeEnd" type="number" min="1" max="100" value="30" />
+            </div>
+            <small class="hint">可依班級實際號碼調整，例如 1～42。</small>
+          </div>
+
+          <div class="field">
+            <label for="excludeInput">排除號碼</label>
+            <input
+              id="excludeInput"
+              type="text"
+              placeholder="用逗號或空格分隔，例如：3, 7, 15"
+            />
+            <small class="hint">輸入目前不參與抽籤的號碼。</small>
+          </div>
+
+          <div class="field">
+            <label>抽籤模式</label>
+            <div class="mode-row">
+              <label class="checkbox-label">
+                <input id="repeatMode" type="checkbox" checked />
+                <span>允許重複被抽</span>
+              </label>
+            </div>
+            <small class="hint">
+              不勾選＝不重複模式（每人最多被抽一次）。<br />
+              無論模式如何，單一號碼最多計 10 次，第 10 次仍會顯示，之後不再抽。
+            </small>
+          </div>
+
+          <div class="field">
+            <label for="drawCount">每次抽籤人數（1–20）</label>
+            <input
+              id="drawCount"
+              type="number"
+              min="1"
+              max="20"
+              value="1"
+            />
+            <small class="hint">抽多人時，動畫會一起跑，不會一個一個跑。</small>
+          </div>
+
+          <div class="field">
+            <label>動畫設定</label>
+            <div class="mode-row">
+              <label class="checkbox-label">
+                <input id="animationToggle" type="checkbox" checked />
+                <span>啟用抽籤動畫（類麻仔台效果）</span>
+              </label>
+            </div>
+            <small class="hint">關閉後會直接顯示結果，不跑動畫。</small>
+          </div>
+
+          <div class="field field-actions">
+            <button id="applySettingsBtn" class="btn-secondary">套用設定</button>
+            <button id="drawBtn" class="btn-primary">開始抽籤</button>
+            <button id="resetBtn" class="btn-ghost">重置抽籤紀錄</button>
+          </div>
+        </div>
+
+        <p id="message" class="message"></p>
+      </section>
+
+      <!-- 中：結果區 -->
+      <section class="panel panel-results">
+        <h2 class="panel-title">本次抽中號碼</h2>
+        <div id="resultsArea" class="results-area">
+          <p class="results-placeholder">尚未抽籤</p>
+        </div>
+      </section>
+
+      <!-- 下：號碼總覽區 -->
+      <section class="panel panel-overview">
+        <div class="panel-header-row">
+          <h2 class="panel-title">抽籤分佈總覽</h2>
+          <span class="legend-title">顏色 = 被抽中的次數：</span>
+        </div>
+
+        <div class="legend-row">
+          <span class="legend-item"><span class="color-dot c1"></span>1</span>
+          <span class="legend-item"><span class="color-dot c2"></span>2</span>
+          <span class="legend-item"><span class="color-dot c3"></span>3</span>
+          <span class="legend-item"><span class="color-dot c4"></span>4</span>
+          <span class="legend-item"><span class="color-dot c5"></span>5</span>
+          <span class="legend-item"><span class="color-dot c6"></span>6</span>
+          <span class="legend-item"><span class="color-dot c7"></span>7</span>
+          <span class="legend-item"><span class="color-dot c8"></span>8</span>
+          <span class="legend-item"><span class="color-dot c9"></span>9</span>
+          <span class="legend-item"><span class="color-dot c10"></span>10</span>
+        </div>
+
+        <div id="numbersGrid" class="numbers-grid">
+          <!-- JS 產生號碼圈圈 -->
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <span>適用於點名、分組、問答抽人 · 號碼被抽越多次，顏色越接近黑色。</span>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
